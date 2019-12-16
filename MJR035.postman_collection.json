@@ -1,0 +1,30 @@
+{
+	"info": {
+		"_postman_id": "85407d5f-3d01-4da5-beaa-fb8a3de40fdd",
+		"name": "MJR035",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:7071/api/CaseNumberGenerateHttpTrigger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7071/api/CaseNumberGenerateHttpTrigger",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"CaseNumberGenerateHttpTrigger"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
