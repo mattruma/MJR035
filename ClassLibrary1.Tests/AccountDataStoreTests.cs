@@ -113,7 +113,8 @@ namespace ClassLibrary1.Tests
                     accountData.Id.ToString(),
                         new PartitionKey(accountData.AccountId.ToString()));
 
-            action.Should().Throw<CosmosException>();
+            action.Should().Throw<CosmosException>()
+                .WithMessage("*Resource Not Found*"); ;
         }
 
         [Fact]
