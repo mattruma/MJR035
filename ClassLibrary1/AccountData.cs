@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
 
 namespace ClassLibrary1
 {
@@ -12,16 +11,23 @@ namespace ClassLibrary1
 
         public override string Object => "Account";
 
-        [JsonProperty("account_id")]
-        public Guid AccountId => this.Id;
-
         [JsonProperty("account")]
-        public string AccountNumber { get; set; }
+        public string AccountNumber { get; internal set; }
 
         [JsonProperty("sysofrecord")]
         public string SystemOfRecord { get; set; }
 
         [JsonProperty("phone")]
         public string PhoneNumber { get; set; }
+
+        public AccountData()
+        {
+        }
+
+        public AccountData(
+            string accountNumber)
+        {
+            this.AccountNumber = accountNumber;
+        }
     }
 }

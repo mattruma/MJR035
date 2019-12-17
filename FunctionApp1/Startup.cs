@@ -1,6 +1,8 @@
 ﻿using ClassLibrary1;
+using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 [assembly: FunctionsStartup(typeof(FunctionApp1.Startup))]
 namespace FunctionApp1
@@ -21,6 +23,15 @@ namespace FunctionApp1
         public override void Configure(
             IFunctionsHostBuilder builder)
         {
+            var cosmosClient =
+                new CosmosClientBuilder(
+                       Environment.GetEnvironmentVariable("AzureCosmosDocumentStoreOptions:ConnectionString"))
+                   .WithConnectionModeDirect()
+                   .Build();
+
+            builder.Services.AddSingleton(
+                new AccountDataStoreOptions(Environment.GetEnvironmentVariable("AzureCosmosDocumentStoreOptions:DatabaseId"),
+                cosmosClient));
             builder.Services.AddSingleton<ICaseNumberGenerate, CaseNumberGenerate>();
         }
     }

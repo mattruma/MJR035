@@ -50,7 +50,7 @@ namespace ClassLibrary1.Tests
                 new ContainerProperties
                 {
                     Id = "accounts",
-                    PartitionKeyPath = "/account_id"
+                    PartitionKeyPath = "/account"
                 });
         }
     }

@@ -3,25 +3,25 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    public interface IAccountDataStore
+    public interface IAccountEntityService
     {
-        Task AddAsync(
-            AccountData accountData);
+        Task<AccountEntity> AddAsync(
+            AccountEntityAddOptions accountEntityAddOptions);
 
         Task DeleteByIdAsync(
             Guid id,
             string accountNumber);
 
-        Task<AccountData> FetchByAccountNumberAsync(
+        Task<AccountEntity> FetchByAccountNumberAsync(
             string accountNumber);
 
-        Task<AccountData> FetchByIdAsync(
+        Task<AccountEntity> FetchByIdAsync(
             Guid id,
             string accountNumber);
 
         Task UpdateByIdAsync(
             Guid id,
             string accountNumber,
-            AccountData accountData);
+            AccountEntityUpdateOptions accountEntityUpdateOptions);
     }
 }
