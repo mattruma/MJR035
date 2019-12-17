@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FunctionApp1
+namespace ClassLibrary1
 {
     public class CaseNumberGenerate : ICaseNumberGenerate
     {

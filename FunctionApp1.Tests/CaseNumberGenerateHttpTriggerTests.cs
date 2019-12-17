@@ -1,3 +1,4 @@
+using ClassLibrary1;
 using FluentAssertions;
 using FunctionApp1.Tests.Helpers;
 using Microsoft.AspNetCore.Mvc;

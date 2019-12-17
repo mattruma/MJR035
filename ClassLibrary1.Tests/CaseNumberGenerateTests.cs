@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace FunctionApp1.Tests
+namespace ClassLibrary1.Tests
 {
     public class CaseNumberGenerateTests : BaseTests
     {

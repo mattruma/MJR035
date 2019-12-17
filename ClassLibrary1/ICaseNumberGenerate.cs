@@ -1,4 +1,4 @@
-﻿namespace FunctionApp1
+﻿namespace ClassLibrary1
 {
     public interface ICaseNumberGenerate
     {
