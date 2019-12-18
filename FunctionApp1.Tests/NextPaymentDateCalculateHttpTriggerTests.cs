@@ -85,14 +85,18 @@ namespace FunctionApp1.Tests
                     httpRequest,
                     _logger);
 
-            // Assert;
+            // Assert
+
             var okObjectResult =
                 (OkObjectResult)actionResult;
 
             var nextPaymentDate =
                 (DateTime)okObjectResult.Value;
 
-            nextPaymentDate.Date.Should().Be(DateTime.UtcNow.Date.AddDays(2));
+            var expectedNextPaymentDate =
+                DateTime.UtcNow.Date.AddDays(2);
+
+            nextPaymentDate.Date.Should().Be(expectedNextPaymentDate);
         }
 
         [Fact]
@@ -126,7 +130,8 @@ namespace FunctionApp1.Tests
                     httpRequest,
                     _logger);
 
-            // Assert;
+            // Assert
+
             var okObjectResult =
                 (OkObjectResult)actionResult;
 

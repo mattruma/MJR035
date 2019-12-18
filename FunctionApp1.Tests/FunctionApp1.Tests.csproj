@@ -10,7 +10,6 @@
     <Compile Remove="AccountDeleteHttpTriggerTests.cs" />
     <Compile Remove="AccountFetchHttpTriggerTests.cs" />
     <Compile Remove="AccountUpdateHttpTriggerTests.cs" />
-    <Compile Remove="RescheduleDateCalculateHttpTriggerTests.cs" />
   </ItemGroup>
 
   <ItemGroup>
