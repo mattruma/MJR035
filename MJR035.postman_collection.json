@@ -6,357 +6,609 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:7071/api/cases/generate/number",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7071/api/cases/generate/number",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7071",
-					"path": [
-						"api",
-						"cases",
-						"generate",
-						"number"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:7071/api/accounts/{accountNumber}",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7071/api/accounts/{{account_number}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7071",
-					"path": [
-						"api",
-						"accounts",
-						"{{account_number}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:7071/api/accounts",
-			"event": [
+			"name": "v1",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
-						"exec": [
-							"pm.environment.set(\"account_number\", _.random(10000, 999999))",
-							"pm.environment.set(\"phone_number\", _.random(100000000, 999999999))"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
-						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"",
-							"pm.test(\"Response must be valid and have a body\", function () {",
-							"    pm.response.to.be.json; ",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"account_number\": \"{{account_number}}\",\n\t\"system_of_record\": \"AutoSuite\",\n\t\"phone_number\": \"{{phone_number}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "http://localhost:7071/api/accounts/{accountNumber}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/accounts/{{account_number}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"accounts",
+								"{{account_number}}"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:7071/api/accounts",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7071",
-					"path": [
-						"api",
-						"accounts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:7071/api/payments/calculate/rescheduledate",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
+					},
+					"response": []
 				},
 				{
-					"listen": "test",
-					"script": {
-						"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"next_payment_date\": \"12/23/2019\",\n    \"zip_code\": \"76014\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "http://localhost:7071/api/cases/generate/number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/cases/generate/number",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"cases",
+								"generate",
+								"number"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:7071/api/payments/calculate/rescheduledate",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7071",
-					"path": [
-						"api",
-						"payments",
-						"calculate",
-						"rescheduledate"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:7071/api/payments/calculate/nextpaymentdate",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
+					},
+					"response": []
 				},
 				{
-					"listen": "test",
-					"script": {
-						"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"next_payment_date\": \"12/23/2019\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "http://localhost:7071/api/accounts/{accountNumber}}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.json; ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:7071/api/payments/calculate/nextpaymentdate",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "7071",
-					"path": [
-						"api",
-						"payments",
-						"calculate",
-						"nextpaymentdate"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:7071/api/accounts/{accountNumber}}",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
-						"exec": [
-							""
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
 						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Response must be valid and have a body\", function () {",
-							"    pm.response.to.be.json; ",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:7071/api/accounts/{{account_number}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7071",
-					"path": [
-						"api",
-						"accounts",
-						"{{account_number}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:7071/api/accounts/{accountNumber}",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
-						"exec": [
-							"pm.environment.set(\"phone_number\", _.random(100000000, 999999999))"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"",
-							"pm.test(\"Response must be valid and have a body\", function () {",
-							"    pm.response.to.be.json; ",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"phone_number\": \"{{phone_number}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+						"url": {
+							"raw": "http://localhost:7071/api/accounts/{{account_number}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"accounts",
+								"{{account_number}}"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:7071/api/accounts/{{account_number}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
+				{
+					"name": "http://localhost:7071/api/accounts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									"pm.environment.set(\"account_number\", _.random(10000, 999999))",
+									"pm.environment.set(\"phone_number\", _.random(100000000, 999999999))"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.json; ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "7071",
-					"path": [
-						"api",
-						"accounts",
-						"{{account_number}}"
-					]
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"account_number\": \"{{account_number}}\",\n\t\"system_of_record\": \"AutoSuite\",\n\t\"phone_number\": \"{{phone_number}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:7071/api/payments/calculate/rescheduledate",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"next_payment_date\": \"12/23/2019\",\n    \"zip_code\": \"76014\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/payments/calculate/rescheduledate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"payments",
+								"calculate",
+								"rescheduledate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:7071/api/payments/calculate/nextpaymentdate",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"next_payment_date\": \"12/23/2019\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/payments/calculate/nextpaymentdate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"payments",
+								"calculate",
+								"nextpaymentdate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:7071/api/accounts/{accountNumber}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									"pm.environment.set(\"phone_number\", _.random(100000000, 999999999))"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.json; ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"phone_number\": \"{{phone_number}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/accounts/{{account_number}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"accounts",
+								"{{account_number}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "v2",
+			"item": [
+				{
+					"name": "http://localhost:7071/api/v2/accounts/{{account_number}}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:7071/api/v2/accounts/{{account_number}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"v2",
+								"accounts",
+								"{{account_number}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:7071/api/v2/accounts/{{account_number}}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.json; ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:7071/api/v2/accounts/{{account_number}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"v2",
+								"accounts",
+								"{{account_number}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:7071/api/v2/accounts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									"pm.environment.set(\"account_number\", _.random(10000, 999999))",
+									"pm.environment.set(\"phone_number\", _.random(100000000, 999999999))"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.json; ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"account_number\": \"{{account_number}}\",\n\t\"system_of_record\": \"AutoSuite\",\n\t\"phone_number\": \"{{phone_number}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/v2/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"v2",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:7071/api/accounts/v2/{accountNumber}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									"pm.environment.set(\"phone_number\", _.random(100000000, 999999999))"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.json; ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"phone_number\": \"{{phone_number}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/v2/accounts/{{account_number}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"v2",
+								"accounts",
+								"{{account_number}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
