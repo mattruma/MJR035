@@ -1,3 +1,9 @@
+using FluentAssertions;
+using FunctionApp1.Data;
+using FunctionApp1.Domain;
+using FunctionApp1.Tests.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
 using Xunit;
 
 namespace FunctionApp1.Tests
@@ -9,9 +15,43 @@ namespace FunctionApp1.Tests
         {
             // Arrange
 
+            var accountDataStore =
+                new Mock<IAccountDataStore>();
+
+            accountDataStore
+                .Setup(x => x.FetchByAccountNumberAsync(It.IsAny<string>()))
+                .ReturnsAsync(new AccountData());
+
+            var accountFetchHttpTrigger =
+                new AccountFetchHttpTrigger(
+                    accountDataStore.Object);
+
+            var httpRequest =
+                HttpRequestHelper.CreateHttpRequest(
+                    "GET",
+                    "http://localhost");
+
+            var accountNumber =
+                _faker.Random.Number(10000, 99999).ToString();
+
             // Act
 
+            var actionResult =
+                await accountFetchHttpTrigger.Run(
+                    httpRequest,
+                    accountNumber,
+                    _logger);
+
             // Assert
+
+            accountDataStore.Verify(x => x.FetchByAccountNumberAsync(It.IsAny<string>()));
+
+            actionResult.Should().BeOfType(typeof(OkObjectResult));
+
+            var okObjectResult =
+                (OkObjectResult)actionResult;
+
+            okObjectResult.Value.Should().BeOfType(typeof(AccountEntity));
         }
     }
 }

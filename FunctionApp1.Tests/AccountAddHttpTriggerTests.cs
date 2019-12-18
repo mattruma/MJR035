@@ -60,6 +60,8 @@ namespace FunctionApp1.Tests
 
             // Assert
 
+            accountDataStore.Verify(x => x.AddAsync(It.IsAny<AccountData>()));
+
             actionResult.Should().BeOfType(typeof(CreatedResult));
 
             var createdResult =
