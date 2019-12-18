@@ -1,31 +1,25 @@
-using ClassLibrary1;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace FunctionApp1
 {
     public class CaseNumberGenerateHttpTrigger
     {
-        private ICaseNumberGenerate _caseNumberGenerate;
-
-        public CaseNumberGenerateHttpTrigger(
-            ICaseNumberGenerate caseNumberGenerate)
-        {
-            _caseNumberGenerate = caseNumberGenerate;
-        }
+        private static readonly Random _random = new Random();
 
         [FunctionName("CaseNumberGenerateHttpTrigger")]
-        public IActionResult Run(
+        public static IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("CaseNumberGenerateHttpTrigger function processed a request.");
 
             var caseNumberGenerated =
-                _caseNumberGenerate.Generate();
+                _random.Next(10000, 999999);
 
             return new OkObjectResult(caseNumberGenerated);
         }

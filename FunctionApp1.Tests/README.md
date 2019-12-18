@@ -25,7 +25,9 @@ Copy the code snippet below into your `appsettings.Development.json` file:
       "System": "Information",
       "Microsoft": "Information"
     }
-  }
+  },
+  "AzureCosmosDocumentStoreOptions:DatabaseId": "",
+  "AzureCosmosDocumentStoreOptions:ConnectionString": ""
 }
 ```
 

@@ -1,4 +1,4 @@
-﻿using ClassLibrary1;
+﻿using FunctionApp1.Data;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +32,6 @@ namespace FunctionApp1
             builder.Services.AddSingleton(
                 new AccountDataStoreOptions(Environment.GetEnvironmentVariable("AzureCosmosDocumentStoreOptions:DatabaseId"),
                 cosmosClient));
-            builder.Services.AddSingleton<ICaseNumberGenerate, CaseNumberGenerate>();
         }
     }
 }
