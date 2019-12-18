@@ -29,13 +29,18 @@ namespace FunctionApp1
         {
             log.LogInformation("AccountUpdateHttpTrigger function processed a request.");
 
+            if (string.IsNullOrWhiteSpace(accountNumber))
+            {
+                return new BadRequestObjectResult("Missing 'account_number' in the uri.");
+            }
+
             var accountEntityUpdateOptions =
                 JsonConvert.DeserializeObject<AccountEntityUpdateOptions>(
                     await new StreamReader(req.Body).ReadToEndAsync());
 
             if (accountEntityUpdateOptions == null)
             {
-                return new BadRequestObjectResult("'account_number' and 'system_of_record' are required and must be sent in the body of the request.");
+                return new BadRequestObjectResult("Missing request body.");
             }
 
             var accountData =

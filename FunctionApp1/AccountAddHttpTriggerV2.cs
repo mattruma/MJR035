@@ -11,20 +11,14 @@ using System.Threading.Tasks;
 
 namespace FunctionApp1
 {
-    public class AccountAddHttpTrigger
+    public class AccountAddHttpTriggerV2
     {
-        private IAccountDataStore _accountDataStore;
-
-        public AccountAddHttpTrigger(
-            IAccountDataStore accountDataStore)
-        {
-            _accountDataStore = accountDataStore;
-        }
-
-        [FunctionName("AccountAddHttpTrigger")]
+        [FunctionName("AccountAddHttpTriggerV2")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "accounts")] HttpRequest req,
-            ILogger log)
+           [HttpTrigger(AuthorizationLevel.Function, "post", Route = "v2/accounts")] HttpRequest req,
+           [CosmosDB("%AzureCosmosDocumentStoreOptions:DatabaseId%", "accounts",
+                ConnectionStringSetting = "AzureCosmosDocumentStoreOptions:ConnectionString")] IAsyncCollector<object> accountDataList,
+           ILogger log)
         {
             log.LogInformation("AccountAddHttpTrigger function processed a request.");
 
@@ -55,8 +49,7 @@ namespace FunctionApp1
                     PhoneNumber = accountEntityAddOptions.PhoneNumber
                 };
 
-            await _accountDataStore.AddAsync(
-                accountData);
+            await accountDataList.AddAsync(accountData);
 
             var accountEntity =
                 new AccountEntity
