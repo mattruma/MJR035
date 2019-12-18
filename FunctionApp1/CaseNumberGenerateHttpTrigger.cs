@@ -13,7 +13,7 @@ namespace FunctionApp1
 
         [FunctionName("CaseNumberGenerateHttpTrigger")]
         public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "cases/number/generate")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "cases/generate/number")] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("CaseNumberGenerateHttpTrigger function processed a request.");
