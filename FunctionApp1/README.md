@@ -10,7 +10,9 @@ Copy the code snippet below into your `local.settings.json` file:
     "IsEncrypted": false,
     "Values": {
         "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-        "FUNCTIONS_WORKER_RUNTIME": "dotnet"
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+        "AzureCosmosDocumentStoreOptions:DatabaseId": "",
+        "AzureCosmosDocumentStoreOptions:ConnectionString": ""
     }
 }
 ```

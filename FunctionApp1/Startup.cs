@@ -32,6 +32,8 @@ namespace FunctionApp1
             builder.Services.AddSingleton(
                 new AccountDataStoreOptions(Environment.GetEnvironmentVariable("AzureCosmosDocumentStoreOptions:DatabaseId"),
                 cosmosClient));
+
+            builder.Services.AddSingleton<IAccountDataStore, AccountDataStore>();
         }
     }
 }

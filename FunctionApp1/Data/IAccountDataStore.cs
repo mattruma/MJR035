@@ -16,8 +16,7 @@ namespace FunctionApp1.Data
             string accountNumber);
 
         Task<AccountData> FetchByIdAsync(
-            Guid id,
-            string accountNumber);
+            Guid id);
 
         Task UpdateByIdAsync(
             Guid id,

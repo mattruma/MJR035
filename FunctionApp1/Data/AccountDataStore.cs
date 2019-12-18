@@ -41,16 +41,38 @@ namespace FunctionApp1.Data
                 new PartitionKey(accountNumber));
         }
 
-        public async Task<AccountData> FetchByIdAsync(
-            Guid id,
-            string accountNumber)
-        {
-            var accountDataResponse =
-                await _cosmosContainer.ReadItemAsync<AccountData>(
-                    id.ToString(),
-                    new PartitionKey(accountNumber));
+        // https://github.com/Azure/azure-cosmos-dotnet-v3/blob/master/Microsoft.Azure.Cosmos.Samples/Usage/Queries/Program.cs
 
-            return accountDataResponse.Resource;
+        public async Task<AccountData> FetchByIdAsync(
+            Guid id)
+        {
+            var queryDefinition =
+                new QueryDefinition(
+                    "SELECT TOP 1 * FROM a WHERE a.object = @object and a.id = @id");
+
+            queryDefinition.WithParameter("@object", "Account");
+            queryDefinition.WithParameter("@id", id.ToString());
+
+            var feedIterator =
+                _cosmosContainer.GetItemQueryIterator<AccountData>(
+                    queryDefinition);
+
+            var accountDataList =
+                new List<AccountData>();
+
+            while (feedIterator.HasMoreResults)
+            {
+                accountDataList.AddRange(
+                    await feedIterator.ReadNextAsync());
+            };
+
+            if (accountDataList.Count == 0)
+            {
+                return null;
+            }
+
+            return
+                accountDataList.First();
         }
 
         public async Task<AccountData> FetchByAccountNumberAsync(
@@ -58,7 +80,9 @@ namespace FunctionApp1.Data
         {
             var queryDefinition =
                 new QueryDefinition(
-                    "SELECT TOP 1 * FROM t1 WHERE t1.object = 'Account'");
+                    "SELECT TOP 1 * FROM a WHERE a.object = @object");
+
+            queryDefinition.WithParameter("@object", "Account");
 
             var feedIterator =
                 _cosmosContainer.GetItemQueryIterator<AccountData>(

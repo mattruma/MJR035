@@ -215,8 +215,7 @@ namespace FunctionApp1.Tests
 
             var accountDataFetched =
                 await accountDataStore.FetchByIdAsync(
-                    accountData.Id,
-                    accountData.AccountNumber);
+                    accountData.Id);
 
             // Assert
 

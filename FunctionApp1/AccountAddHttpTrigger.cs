@@ -23,7 +23,7 @@ namespace FunctionApp1
 
         [FunctionName("AccountAddHttpTrigger")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "accounts")] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("AccountAddHttpTrigger function processed a request.");
@@ -32,14 +32,19 @@ namespace FunctionApp1
                 JsonConvert.DeserializeObject<AccountEntityAddOptions>(
                     await new StreamReader(req.Body).ReadToEndAsync());
 
+            if (accountEntityAddOptions == null)
+            {
+                return new BadRequestObjectResult("'account_number' and 'system_of_record' are required and must be sent in the body of the request.");
+            }
+
             if (string.IsNullOrWhiteSpace(accountEntityAddOptions.AccountNumber))
             {
-                return new BadRequestObjectResult($"'account_number' is required.");
+                return new BadRequestObjectResult("'account_number' is required.");
             }
 
             if (string.IsNullOrWhiteSpace(accountEntityAddOptions.SystemOfRecord))
             {
-                return new BadRequestObjectResult($"'system_of_record' is required.");
+                return new BadRequestObjectResult("'system_of_record' is required.");
             }
 
             var accountData =
