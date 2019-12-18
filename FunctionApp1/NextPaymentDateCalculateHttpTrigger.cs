@@ -21,7 +21,7 @@ namespace FunctionApp1
             log.LogInformation("NextPaymentDateCalculateOptions function processed a request.");
 
             var rescheduleDateCalculateOptions =
-                JsonConvert.DeserializeObject<RescheduleDateCalculateOptions>(
+                JsonConvert.DeserializeObject<NextPaymentDateCalculateOptions>(
                     await new StreamReader(req.Body).ReadToEndAsync());
 
             if (rescheduleDateCalculateOptions == null)
@@ -29,8 +29,10 @@ namespace FunctionApp1
                 return new BadRequestObjectResult("'next_payment_date' is required and must be sent in the body of the request.");
             }
 
+            // Use UTC, as time zones may be different, would affect generated date if called near midnight
+
             var nextPaymentDate =
-                DateTime.Today.AddDays(2);
+                DateTime.UtcNow.AddDays(2);
 
             if (rescheduleDateCalculateOptions.NextPaymentDate.HasValue)
             {
