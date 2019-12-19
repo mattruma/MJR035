@@ -7,7 +7,7 @@ using System;
 
 namespace FunctionApp1
 {
-    public class CaseNumberGenerateHttpTrigger
+    public static class CaseNumberGenerateHttpTrigger
     {
         private static readonly Random _random = new Random();
 

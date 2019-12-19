@@ -4,9 +4,13 @@
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="AccountAddHttpTrigger.cs" />
     <Compile Remove="AccountAddHttpTriggerV2.cs" />
+    <Compile Remove="AccountDeleteHttpTrigger.cs" />
     <Compile Remove="AccountDeleteHttpTriggerV2.cs" />
+    <Compile Remove="AccountFetchHttpTrigger.cs" />
     <Compile Remove="AccountFetchHttpTriggerV2.cs" />
+    <Compile Remove="AccountUpdateHttpTrigger.cs" />
     <Compile Remove="AccountUpdateHttpTriggerV2.cs" />
   </ItemGroup>
   <ItemGroup>
