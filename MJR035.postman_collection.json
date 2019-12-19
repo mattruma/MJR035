@@ -9,7 +9,21 @@
 			"name": "v1",
 			"item": [
 				{
-					"name": "http://localhost:7071/api/accounts/{accountNumber}",
+					"name": "http://localhost:7071/api/accounts/{account_number}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2382e8c1-5e3b-4c2d-abd1-1765dacc352e",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -52,7 +66,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:7071/api/accounts/{accountNumber}}",
+					"name": "http://localhost:7071/api/accounts/{account_number}",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -87,8 +101,8 @@
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
 							}
 						],
 						"url": {
@@ -132,6 +146,8 @@
 									"",
 									"pm.test(\"Response must be valid and have a body\", function () {",
 									"    pm.response.to.be.json; ",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    pm.globals.set(\"account_number\", jsonData.account_number);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -297,7 +313,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:7071/api/accounts/{accountNumber}",
+					"name": "http://localhost:7071/api/accounts/{account_number}",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -332,8 +348,8 @@
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							}
 						],
 						"body": {
@@ -385,7 +401,9 @@
 							"script": {
 								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
 								"exec": [
-									""
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -500,6 +518,8 @@
 									"",
 									"pm.test(\"Response must be valid and have a body\", function () {",
 									"    pm.response.to.be.json; ",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    pm.globals.set(\"account_number\", jsonData.account_number);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -542,7 +562,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:7071/api/accounts/v2/{accountNumber}",
+					"name": "http://localhost:7071/api/v2/accounts/{account_number}",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -560,7 +580,7 @@
 								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(201);",
+									"    pm.response.to.have.status(200);",
 									"});",
 									"",
 									"pm.test(\"Response must be valid and have a body\", function () {",
@@ -602,6 +622,399 @@
 								"v2",
 								"accounts",
 								"{{account_number}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "logicapps",
+			"item": [
+				{
+					"name": "https://prod-25.eastus2.logic.azure.com:443/accounts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									"pm.environment.set(\"account_number\", _.random(10000, 999999))",
+									"pm.environment.set(\"phone_number\", _.random(100000000, 999999999))"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.json; ",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    pm.globals.set(\"account_number\", jsonData.account_number);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"account_number\": \"{{account_number}}\",\n\t\"system_of_record\": \"AutoSuite\",\n\t\"phone_number\": \"{{phone_number}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://prod-25.eastus2.logic.azure.com:443/workflows/a774715c21774abaa87f211dc6456a59/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=wajA6FFZ2D4MyBhPUwY3SHSXhKBskKIzWtqiWgF0WK0",
+							"protocol": "https",
+							"host": [
+								"prod-25",
+								"eastus2",
+								"logic",
+								"azure",
+								"com"
+							],
+							"port": "443",
+							"path": [
+								"workflows",
+								"a774715c21774abaa87f211dc6456a59",
+								"triggers",
+								"manual",
+								"paths",
+								"invoke"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2016-10-01"
+								},
+								{
+									"key": "sp",
+									"value": "%2Ftriggers%2Fmanual%2Frun"
+								},
+								{
+									"key": "sv",
+									"value": "1.0"
+								},
+								{
+									"key": "sig",
+									"value": "wajA6FFZ2D4MyBhPUwY3SHSXhKBskKIzWtqiWgF0WK0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://prod-25.eastus2.logic.azure.com:443/account/{account_number}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.json; ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://prod-13.eastus2.logic.azure.com/workflows/7fc495a988c446d0bd58e48764f73607/triggers/manual/paths/invoke/{{account_number}}?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=RPCkddpxiDUKVzW4p0mG6i7DZKtMpIsaDgKxIyOADus",
+							"protocol": "https",
+							"host": [
+								"prod-13",
+								"eastus2",
+								"logic",
+								"azure",
+								"com"
+							],
+							"path": [
+								"workflows",
+								"7fc495a988c446d0bd58e48764f73607",
+								"triggers",
+								"manual",
+								"paths",
+								"invoke",
+								"{{account_number}}"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2016-10-01"
+								},
+								{
+									"key": "sp",
+									"value": "%2Ftriggers%2Fmanual%2Frun"
+								},
+								{
+									"key": "sv",
+									"value": "1.0"
+								},
+								{
+									"key": "sig",
+									"value": "RPCkddpxiDUKVzW4p0mG6i7DZKtMpIsaDgKxIyOADus"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://prod-25.eastus2.logic.azure.com:443/account/{account_number}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									"pm.environment.set(\"phone_number\", _.random(100000000, 999999999))"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.json; ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"phone_number\": \"{{phone_number}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://prod-12.eastus2.logic.azure.com/workflows/e9f760ca864f4c4d9e56ec82361f8805/triggers/manual/paths/invoke/{{account_number}}?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PNEYQncpQ4erl39Ea60IGitkzvkphF_VtDvwHx3nZRY",
+							"protocol": "https",
+							"host": [
+								"prod-12",
+								"eastus2",
+								"logic",
+								"azure",
+								"com"
+							],
+							"path": [
+								"workflows",
+								"e9f760ca864f4c4d9e56ec82361f8805",
+								"triggers",
+								"manual",
+								"paths",
+								"invoke",
+								"{{account_number}}"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2016-10-01"
+								},
+								{
+									"key": "sp",
+									"value": "%2Ftriggers%2Fmanual%2Frun"
+								},
+								{
+									"key": "sv",
+									"value": "1.0"
+								},
+								{
+									"key": "sig",
+									"value": "PNEYQncpQ4erl39Ea60IGitkzvkphF_VtDvwHx3nZRY"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://prod-25.eastus2.logic.azure.com:443/account/{account_number}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "24446e17-14ef-47ef-9e40-4f4a177c9508",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ccacd-8cb0-43d2-97e3-aca254216093",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://prod-14.eastus2.logic.azure.com/workflows/c41550cdf1a2425f8dfeea088a7b7412/triggers/manual/paths/invoke/{{account_number}}?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=D1Sy0KGQAkt4XzFhICjhlQaPCS6YDfLJnPilorG1dq4",
+							"protocol": "https",
+							"host": [
+								"prod-14",
+								"eastus2",
+								"logic",
+								"azure",
+								"com"
+							],
+							"path": [
+								"workflows",
+								"c41550cdf1a2425f8dfeea088a7b7412",
+								"triggers",
+								"manual",
+								"paths",
+								"invoke",
+								"{{account_number}}"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2016-10-01"
+								},
+								{
+									"key": "sp",
+									"value": "%2Ftriggers%2Fmanual%2Frun"
+								},
+								{
+									"key": "sv",
+									"value": "1.0"
+								},
+								{
+									"key": "sig",
+									"value": "D1Sy0KGQAkt4XzFhICjhlQaPCS6YDfLJnPilorG1dq4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://prod-25.eastus2.logic.azure.com:443/cases/generate/number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://prod-47.eastus2.logic.azure.com:443/workflows/e4066b8434e64bf8822024a583aeeda6/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=wRKBKD1BBcW5ZrM-oNbo3WlNVploEeRdmhf3GiSy3Yo",
+							"protocol": "https",
+							"host": [
+								"prod-47",
+								"eastus2",
+								"logic",
+								"azure",
+								"com"
+							],
+							"port": "443",
+							"path": [
+								"workflows",
+								"e4066b8434e64bf8822024a583aeeda6",
+								"triggers",
+								"manual",
+								"paths",
+								"invoke"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2016-10-01"
+								},
+								{
+									"key": "sp",
+									"value": "%2Ftriggers%2Fmanual%2Frun"
+								},
+								{
+									"key": "sv",
+									"value": "1.0"
+								},
+								{
+									"key": "sig",
+									"value": "wRKBKD1BBcW5ZrM-oNbo3WlNVploEeRdmhf3GiSy3Yo"
+								}
 							]
 						}
 					},
