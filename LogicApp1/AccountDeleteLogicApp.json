@@ -85,7 +85,7 @@
                 },
                 "method": "delete",
                 "headers": {
-                  "x-ms-documentdb-raw-partitionkey": "\"@{triggerOutputs()['relativePathParameters']['account_number']}\""
+                  "x-ms-documentdb-raw-partitionkey": "\"@{triggerOutputs()['relativePathParameters']['accountNumber']}\""
                 },
                 "path": "/dbs/@{encodeURIComponent('mjr-035-001-db')}/colls/@{encodeURIComponent('accounts')}/docs/@{encodeURIComponent(body('Query_documents')?['Documents'][0]['id'])}"
               },
@@ -108,7 +108,7 @@
                   "query": "SELECT TOP 1 * FROM a WHERE a.object = 'Account'"
                 },
                 "headers": {
-                  "x-ms-documentdb-raw-partitionkey": "\"@{triggerOutputs()['relativePathParameters']['account_number']}\""
+                  "x-ms-documentdb-raw-partitionkey": "\"@{triggerOutputs()['relativePathParameters']['accountNumber']}\""
                 },
                 "path": "/dbs/@{encodeURIComponent('mjr-035-001-db')}/colls/@{encodeURIComponent('accounts')}/query"
               },
@@ -140,7 +140,7 @@
               "inputs": {
                 "schema": {},
                 "method": "DELETE",
-                "relativePath": "/{account_number}"
+                "relativePath": "/{accountNumber}"
               }
             }
           },

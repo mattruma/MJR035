@@ -85,15 +85,15 @@
                 },
                 "method": "post",
                 "body": {
-                  "account": "@triggerBody()?['account_number']",
-                  "created_on": "@variables('created_on')",
+                  "account": "@triggerBody()?['accountNumber']",
+                  "createdOn": "@variables('createdOn')",
                   "id": "@guid()",
                   "object": "Account",
-                  "phone": "@triggerBody()?['phone_number']",
-                  "sysofrec": "@triggerBody()?['system_of_record']"
+                  "phone": "@triggerBody()?['phoneNumber']",
+                  "sysofrec": "@triggerBody()?['systemOfRecord']"
                 },
                 "headers": {
-                  "x-ms-documentdb-raw-partitionkey": "\"@{triggerBody()?['account_number']}\""
+                  "x-ms-documentdb-raw-partitionkey": "\"@{triggerBody()?['accountNumber']}\""
                 },
                 "path": "/dbs/@{encodeURIComponent('mjr-035-001-db')}/colls/@{encodeURIComponent('accounts')}/docs"
               },
@@ -108,7 +108,7 @@
               "inputs": {
                 "variables": [
                   {
-                    "name": "created_on",
+                    "name": "createdOn",
                     "type": "string",
                     "value": "@{utcNow()}"
                   }
@@ -122,11 +122,11 @@
               "inputs": {
                 "statusCode": 201,
                 "body": {
-                  "account_number": "@triggerBody()?['account_number']",
-                  "created_on": "@variables('created_on')",
+                  "accountNumber": "@triggerBody()?['accountNumber']",
+                  "createdOn": "@variables('createdOn')",
                   "id": "@body('Create_or_update_document')?['id']",
-                  "phone_number": "@triggerBody()?['phone_number']",
-                  "system_of_record": "@triggerBody()?['system_of_record']"
+                  "phoneNumber": "@triggerBody()?['phoneNumber']",
+                  "systemOfRecord": "@triggerBody()?['systemOfRecord']"
                 }
               },
               "runAfter": {
@@ -149,13 +149,13 @@
               "inputs": {
                 "schema": {
                   "properties": {
-                    "account_number": {
+                    "accountNumber": {
                       "type": "string"
                     },
-                    "phone_number": {
+                    "phoneNumber": {
                       "type": "string"
                     },
-                    "system_of_record": {
+                    "systemOfRecord": {
                       "type": "string"
                     }
                   },

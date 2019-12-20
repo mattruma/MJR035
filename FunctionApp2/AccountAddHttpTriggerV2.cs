@@ -1,5 +1,5 @@
-using FunctionApp1.Data;
-using FunctionApp1.Domain;
+using FunctionApp2.Data;
+using FunctionApp2.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace FunctionApp1
+namespace FunctionApp2
 {
     public class AccountAddHttpTriggerV2
     {

@@ -114,8 +114,7 @@ namespace FunctionApp2.Tests
                     accountData.Id.ToString(),
                         new PartitionKey(accountData.AccountNumber));
 
-            action.Should().Throw<CosmosException>()
-                .WithMessage("*Resource Not Found*"); ;
+            action.Should().Throw<CosmosException>().WithMessage("*Resource Not Found*"); ;
         }
 
         [Fact]

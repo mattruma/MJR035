@@ -31,7 +31,7 @@ namespace FunctionApp2
 
             if (string.IsNullOrWhiteSpace(accountNumber))
             {
-                return new BadRequestObjectResult("Missing 'account_number' in the uri.");
+                return new BadRequestObjectResult("'accountNumber' required in the uri, e.g. 'accounts/{accountNumber}'.");
             }
 
             var accountEntityUpdateOptions =

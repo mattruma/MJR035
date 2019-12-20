@@ -1,4 +1,4 @@
-using FunctionApp1.Data;
+using FunctionApp2.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FunctionApp1
+namespace FunctionApp2
 {
     public static class AccountFetchHttpTriggerV2
     {

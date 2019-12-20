@@ -1,16 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using System;
 
 namespace FunctionApp2.Domain
 {
-    public class AccountEntity : BaseEntity
+    public class AccountEntity
     {
-        [JsonProperty("account_number")]
+        public Guid Id { get; set; }
+
         public string AccountNumber { get; set; }
 
-        [JsonProperty("system_of_record")]
         public string SystemOfRecord { get; set; }
 
-        [JsonProperty("phone_number")]
         public string PhoneNumber { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

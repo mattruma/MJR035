@@ -88,7 +88,7 @@
                   "query": "SELECT TOP 1 * FROM a WHERE a.object = 'Account'"
                 },
                 "headers": {
-                  "x-ms-documentdb-raw-partitionkey": "\"@{triggerOutputs()['relativePathParameters']['account_number']}\""
+                  "x-ms-documentdb-raw-partitionkey": "\"@{triggerOutputs()['relativePathParameters']['accountNumber']}\""
                 },
                 "path": "/dbs/@{encodeURIComponent('mjr-035-001-db')}/colls/@{encodeURIComponent('accounts')}/query"
               },
@@ -105,14 +105,14 @@
                 "method": "put",
                 "body": {
                   "account": "@body('Query_documents')?['Documents'][0]['account']",
-                  "created_on": "@body('Query_documents')?['Documents'][0]['created_on']",
+                  "createdOn": "@body('Query_documents')?['Documents'][0]['createdOn']",
                   "id": "@body('Query_documents')?['Documents'][0]['id']",
                   "object": "@body('Query_documents')?['Documents'][0]['object']",
-                  "phone": "@triggerBody()?['phone_number']",
+                  "phone": "@triggerBody()?['phoneNumber']",
                   "sysofrec": "@body('Query_documents')?['Documents'][0]['sysofrec']"
                 },
                 "headers": {
-                  "x-ms-documentdb-raw-partitionkey": "\"@{triggerOutputs()['relativePathParameters']['account_number']}\""
+                  "x-ms-documentdb-raw-partitionkey": "\"@{triggerOutputs()['relativePathParameters']['accountNumber']}\""
                 },
                 "path": "/dbs/@{encodeURIComponent('mjr-035-001-db')}/colls/@{encodeURIComponent('accounts')}/docs/@{encodeURIComponent(body('Query_documents')?['Documents'][0]['id'])}"
               },
@@ -128,11 +128,11 @@
               "inputs": {
                 "statusCode": 200,
                 "body": {
-                  "account_number": "@body('Query_documents')?['Documents'][0]['account']",
-                  "created_on": "@body('Query_documents')?['Documents'][0]['created_on']",
+                  "accountNumber": "@body('Query_documents')?['Documents'][0]['account']",
+                  "createdOn": "@body('Query_documents')?['Documents'][0]['createdOn']",
                   "id": "@body('Query_documents')?['Documents'][0]['id']",
-                  "phone_number": "@triggerBody()?['phone_number']",
-                  "system_of_record": "@body('Query_documents')?['Documents'][0]['sysofrec']"
+                  "phoneNumber": "@triggerBody()?['phoneNumber']",
+                  "systemOfRecord": "@body('Query_documents')?['Documents'][0]['sysofrec']"
                 }
               },
               "runAfter": {
@@ -155,14 +155,14 @@
               "inputs": {
                 "schema": {
                   "properties": {
-                    "phone_number": {
+                    "phoneNumber": {
                       "type": "string"
                     }
                   },
                   "type": "object"
                 },
                 "method": "PUT",
-                "relativePath": "/{account_number}"
+                "relativePath": "/{accountNumber}"
               }
             }
           },

@@ -39,12 +39,12 @@ namespace FunctionApp2
 
             if (string.IsNullOrWhiteSpace(accountEntityAddOptions.AccountNumber))
             {
-                return new BadRequestObjectResult("'account_number' is required.");
+                return new BadRequestObjectResult("'accountNumber' is required.");
             }
 
             if (string.IsNullOrWhiteSpace(accountEntityAddOptions.SystemOfRecord))
             {
-                return new BadRequestObjectResult("'system_of_record' is required.");
+                return new BadRequestObjectResult("'systemOfRecord' is required.");
             }
 
             var accountData =
