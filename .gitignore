@@ -3,6 +3,7 @@
 
 # Azure Functions localsettings file
 *.settings.json
+*.postman_collection.json
 appsettings.*.json
 
 # User-specific files
